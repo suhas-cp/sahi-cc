@@ -3,6 +3,7 @@
 **Status:** Research / divergent exploration. This is not a build plan.
 **Date:** 8 October 2026
 **Scope:** Desktop (web.sahi.com and desktop terminals) for **traders** (intraday and F&O) and **investors** (fundamentals, long-horizon).
+**Web version:** [`sahi-ai-opportunity-map.html`](./sahi-ai-opportunity-map.html). Open it in a browser for the interactive value-chain canvas and the filterable concept catalogue.
 
 ---
 

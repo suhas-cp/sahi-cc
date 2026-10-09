@@ -1,0 +1,1175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important; }</style>
+<title>Sahi AI Opportunity Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: sticky contents rail on the left, research column on the right; tables and the value-chain figure use the full column width */
+:root {
+  --bg: #F5F7FA;
+  --surface: #FFFFFF;
+  --surface-2: #ECEFF5;
+  --fg: #131925;
+  --muted: #566176;
+  --line: #D8DDE6;
+  --line-strong: #A3ADBF;
+  --accent: #2A45C4;
+  --accent-soft: #E2E7FA;
+  --on-accent: #FFFFFF;
+  --ok: #1E7F55;
+  --ok-soft: #DCF0E6;
+  --watch: #A86F12;
+  --watch-soft: #FAEFD7;
+  --stress: #C7511A;
+  --stress-soft: #FBE5D8;
+  --bad: #BC2635;
+  --bad-soft: #F8DDE0;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E121A; --surface: #151B26; --surface-2: #1C2332; --fg: #E5E9F1; --muted: #98A3B7;
+    --line: #283041; --line-strong: #4A5468; --accent: #8EA2FF; --accent-soft: #1E2950; --on-accent: #0E121A;
+    --ok: #4DC28B; --ok-soft: #10301F; --watch: #E3B04B; --watch-soft: #33280E; --stress: #F28B52; --stress-soft: #3A2013;
+    --bad: #F2717D; --bad-soft: #3B161B; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E121A; --surface: #151B26; --surface-2: #1C2332; --fg: #E5E9F1; --muted: #98A3B7;
+  --line: #283041; --line-strong: #4A5468; --accent: #8EA2FF; --accent-soft: #1E2950; --on-accent: #0E121A;
+  --ok: #4DC28B; --ok-soft: #10301F; --watch: #E3B04B; --watch-soft: #33280E; --stress: #F28B52; --stress-soft: #3A2013;
+  --bad: #F2717D; --bad-soft: #3B161B; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--body); font-size: 16px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible, button:focus-visible, input:focus-visible + .switch { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+p { margin: 0; }
+ul, ol { margin: 0; padding: 0; }
+h1, h2, h3, h4 { margin: 0; text-wrap: balance; }
+
+.page {
+  display: grid; grid-template-columns: 13.5rem minmax(0, 1fr); gap: 3.5rem;
+  max-width: 80rem; margin: 0 auto; padding-inline: 28px; padding-block: 48px 96px;
+}
+
+/* Contents rail */
+.toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 28px); align-self: start; }
+.toc-label { font: 500 .72rem/1 var(--mono); text-transform: uppercase; letter-spacing: .09em; color: var(--muted); margin-bottom: .9rem; }
+.toc ol { list-style: none; display: flex; flex-direction: column; gap: .15rem; border-left: 1px solid var(--line); }
+.toc a {
+  display: block; padding: .32rem 0 .32rem .9rem; margin-left: -1px; border-left: 2px solid transparent;
+  color: var(--muted); text-decoration: none; font-size: .9rem; line-height: 1.35;
+}
+.toc a:hover { color: var(--fg); }
+.toc a.active { color: var(--fg); border-left-color: var(--accent); font-weight: 500; }
+
+main { min-width: 0; display: flex; flex-direction: column; gap: 4.5rem; }
+
+/* Header */
+.masthead { display: flex; flex-direction: column; gap: 1.1rem; max-width: 50rem; }
+.eyebrow { font: 500 .75rem/1.3 var(--mono); text-transform: uppercase; letter-spacing: .09em; color: var(--muted); }
+h1 { font-family: var(--display); font-weight: 700; font-size: clamp(2.3rem, 4.6vw, 3.4rem); line-height: 1.04; letter-spacing: -.015em; }
+.deck { font-size: 1.18rem; line-height: 1.55; color: var(--muted); max-width: 44rem; }
+.status-row { display: flex; flex-wrap: wrap; gap: .5rem; }
+.chip {
+  display: inline-flex; align-items: center; gap: .4rem; font: 500 .75rem/1 var(--mono);
+  padding: .42rem .65rem; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--muted);
+}
+.chip b { color: var(--fg); font-weight: 500; }
+
+/* Section scaffolding */
+section { display: flex; flex-direction: column; gap: 1.4rem; scroll-margin-top: 24px; }
+.sec-head { display: flex; flex-direction: column; gap: .5rem; max-width: 46rem; }
+h2 { font-family: var(--display); font-weight: 700; font-size: 1.85rem; line-height: 1.15; letter-spacing: -.01em; }
+h3 { font-size: 1.08rem; font-weight: 600; line-height: 1.35; }
+.lede { color: var(--muted); font-size: 1.02rem; }
+.prose { max-width: 44rem; display: flex; flex-direction: column; gap: .9rem; }
+.sub { display: flex; flex-direction: column; gap: .9rem; }
+
+/* Findings */
+.findings { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.findings li { background: var(--surface); padding: 1.15rem 1.25rem; display: flex; flex-direction: column; gap: .35rem; min-width: 0; }
+.findings li strong { font-weight: 600; font-size: 1rem; }
+.findings li span { color: var(--muted); font-size: .94rem; line-height: 1.55; }
+.findings li.wide { grid-column: 1 / -1; }
+
+/* Baseline */
+.split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 1.2rem 1.3rem; display: flex; flex-direction: column; gap: .8rem; min-width: 0; }
+.panel.missing { background: var(--accent-soft); border-color: transparent; }
+.panel h3 { font: 500 .74rem/1.2 var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.ticks { list-style: none; display: flex; flex-direction: column; gap: .55rem; font-size: .95rem; }
+.ticks li { display: grid; grid-template-columns: 1rem minmax(0, 1fr); gap: .55rem; }
+.ticks li::before { content: ""; width: .5rem; height: .5rem; margin-top: .55rem; border-radius: 2px; background: var(--line-strong); }
+.missing .ticks li::before { background: var(--accent); }
+.note { font-size: .82rem; color: var(--muted); }
+
+/* Tables */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 760px; font-size: .9rem; line-height: 1.5; }
+th { text-align: left; font: 500 .7rem/1.3 var(--mono); text-transform: uppercase; letter-spacing: .07em; color: var(--muted); background: var(--surface-2); }
+th, td { padding: .75rem .95rem; vertical-align: top; border-bottom: 1px solid var(--line); }
+tbody tr:last-child td { border-bottom: 0; }
+td.name { font-weight: 600; min-width: 9.5rem; }
+td.name small { display: block; font-weight: 400; color: var(--muted); font-size: .8rem; }
+td .muted, .muted { color: var(--muted); }
+
+/* Patterns */
+.patterns { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem 2rem; }
+.patterns li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: .75rem; font-size: .95rem; }
+.patterns li b { font-weight: 600; }
+.pnum { font: 500 .75rem/1.9 var(--mono); color: var(--accent); }
+
+/* Value-chain figure */
+.figure { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.fig-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .8rem 1.5rem; padding: 1rem 1.2rem; border-bottom: 1px solid var(--line); }
+.seg { display: inline-flex; flex-wrap: wrap; gap: .35rem; }
+.seg button, .steps button, .filters button {
+  font: 500 .82rem/1 var(--body); color: var(--fg); background: var(--surface-2); border: 1px solid transparent;
+  padding: .55rem .8rem; border-radius: 8px; cursor: pointer;
+}
+.seg button:hover, .steps button:hover, .filters button:hover { border-color: var(--line-strong); }
+.seg button[aria-pressed="true"], .filters button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+.toggle { display: inline-flex; align-items: center; gap: .55rem; font-size: .86rem; color: var(--muted); cursor: pointer; }
+.toggle input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.switch { width: 2.1rem; height: 1.2rem; border-radius: 999px; background: var(--line-strong); position: relative; transition: background .2s; flex: none; }
+.switch::after { content: ""; position: absolute; top: .15rem; left: .15rem; width: .9rem; height: .9rem; border-radius: 50%; background: var(--surface); transition: transform .2s; }
+.toggle input:checked + .switch { background: var(--accent); }
+.toggle input:checked + .switch::after { transform: translateX(.9rem); }
+.steps-row { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; padding: .85rem 1.2rem; border-bottom: 1px solid var(--line); background: var(--surface-2); }
+.steps-label { font: 500 .7rem/1 var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.steps { display: flex; flex-wrap: wrap; gap: .3rem; }
+.steps button { background: var(--surface); font-family: var(--mono); font-size: .78rem; }
+.steps button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+.canvas-scroll { overflow-x: auto; padding: .6rem .6rem 0; }
+.canvas-scroll svg { display: block; width: 100%; min-width: 760px; height: auto; }
+.fig-foot { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 1.4rem; padding: 1.1rem 1.2rem 1.25rem; border-top: 1px solid var(--line); }
+.caption { display: flex; flex-direction: column; gap: .4rem; min-width: 0; }
+.cap-when { font: 500 .75rem/1 var(--mono); color: var(--accent); text-transform: uppercase; letter-spacing: .08em; }
+.cap-text { font-size: .98rem; }
+.cap-src { font-size: .8rem; color: var(--muted); }
+.cap-held { font-size: .86rem; padding: .55rem .7rem; border-radius: 8px; background: var(--accent-soft); }
+.legend { display: flex; flex-direction: column; gap: .5rem; font-size: .8rem; color: var(--muted); }
+.legend-row { display: flex; flex-wrap: wrap; gap: .4rem .9rem; }
+.lg { display: inline-flex; align-items: center; gap: .4rem; }
+.lg i { width: .7rem; height: .7rem; border-radius: 50%; display: inline-block; }
+.lg svg { width: 28px; height: 8px; }
+
+/* SVG styling */
+.n-rect { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1; transition: fill .25s, stroke .25s; }
+.n-title { font-family: var(--body); font-size: 13px; font-weight: 500; fill: var(--fg); }
+.n-sub { font-family: var(--body); font-size: 11.5px; fill: var(--muted); }
+.n-state { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; fill: var(--muted); }
+.n-dot { fill: var(--ok); transition: fill .25s; }
+.n-held { font-family: var(--mono); font-size: 9.5px; letter-spacing: .08em; fill: var(--accent); }
+.col-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; fill: var(--muted); }
+.side-bar { fill: var(--surface-2); stroke: var(--line); }
+.side-text { font-family: var(--body); font-size: 12px; fill: var(--fg); }
+.side-label { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; fill: var(--muted); }
+.side-div { stroke: var(--line-strong); }
+.edge { fill: none; stroke: var(--line-strong); stroke-width: 1.4; transition: stroke .25s; }
+.edge.dashed { stroke-dasharray: 5 4; }
+.edge.s-watch { stroke: var(--watch); stroke-width: 1.8; }
+.edge.s-stress { stroke: var(--stress); stroke-width: 2.2; }
+.edge.s-bad { stroke: var(--bad); stroke-width: 2.6; }
+.ah-normal { fill: var(--line-strong); } .ah-watch { fill: var(--watch); } .ah-stress { fill: var(--stress); } .ah-bad { fill: var(--bad); }
+g.s-watch .n-rect { fill: var(--watch-soft); stroke: var(--watch); }
+g.s-stress .n-rect { fill: var(--stress-soft); stroke: var(--stress); stroke-width: 1.5; }
+g.s-bad .n-rect { fill: var(--bad-soft); stroke: var(--bad); stroke-width: 2; }
+g.s-watch .n-dot { fill: var(--watch); } g.s-stress .n-dot { fill: var(--stress); } g.s-bad .n-dot { fill: var(--bad); }
+g.s-watch .n-state { fill: var(--watch); } g.s-stress .n-state { fill: var(--stress); } g.s-bad .n-state { fill: var(--bad); }
+g.held .n-rect { stroke: var(--accent); stroke-width: 2.5; }
+.lg-ok { background: var(--ok); } .lg-watch { background: var(--watch); } .lg-stress { background: var(--stress); } .lg-bad { background: var(--bad); }
+
+/* Anatomy */
+.anatomy { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.anatomy .panel ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; font-size: .93rem; }
+.anatomy .panel li b { font-weight: 600; }
+
+.bullets { list-style: none; display: flex; flex-direction: column; gap: .7rem; max-width: 46rem; }
+.bullets li { display: grid; grid-template-columns: .9rem minmax(0, 1fr); gap: .6rem; font-size: .97rem; }
+.bullets li::before { content: ""; width: .42rem; height: .42rem; margin-top: .62rem; border-radius: 50%; background: var(--accent); }
+.bullets li b { font-weight: 600; }
+
+.variants { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; }
+.variants li { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: .9rem 1rem; font-size: .92rem; display: flex; flex-direction: column; gap: .25rem; min-width: 0; }
+.variants li b { font-weight: 600; font-size: .95rem; }
+.variants li span { color: var(--muted); }
+
+/* Catalogue */
+.filters { display: flex; flex-direction: column; gap: .7rem; padding: 1rem 1.1rem; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+.filter-row { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .6rem; }
+.filter-row > span { font: 500 .7rem/1 var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); width: 3.6rem; }
+.filter-row div { display: flex; flex-wrap: wrap; gap: .35rem; }
+.count { font-size: .85rem; color: var(--muted); }
+.stage-group { display: flex; flex-direction: column; gap: .5rem; }
+.stage-group h3 { font: 600 .78rem/1 var(--mono); text-transform: uppercase; letter-spacing: .09em; color: var(--muted); padding-top: .4rem; }
+.concepts { list-style: none; display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden; }
+.concept { display: grid; grid-template-columns: 3rem minmax(0, 1fr) minmax(0, .8fr); gap: 1.1rem; padding: .95rem 1.1rem; border-bottom: 1px solid var(--line); }
+.concept:last-child { border-bottom: 0; }
+.cid { font: 500 .82rem/1.5 var(--mono); color: var(--accent); }
+.cmain { display: flex; flex-direction: column; gap: .3rem; min-width: 0; }
+.chead { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+.chead h4 { font-size: .98rem; font-weight: 600; }
+.cmain p { font-size: .92rem; color: var(--fg); }
+.prec { font-size: .84rem; color: var(--muted); min-width: 0; }
+.prec b { display: block; font: 500 .66rem/1.6 var(--mono); text-transform: uppercase; letter-spacing: .08em; }
+.tag { font: 500 .68rem/1 var(--mono); padding: .28rem .45rem; border-radius: 5px; text-transform: uppercase; letter-spacing: .06em; }
+.tag-I { background: var(--ok-soft); color: var(--ok); }
+.tag-T { background: var(--stress-soft); color: var(--stress); }
+.tag-B { background: var(--accent-soft); color: var(--accent); }
+.tag-star { background: var(--surface-2); color: var(--fg); }
+
+/* Desktop paradigms */
+.paradigms { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; }
+.paradigms li { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1rem; display: flex; flex-direction: column; gap: .35rem; min-width: 0; }
+.paradigms li b { font-weight: 600; }
+.paradigms li span { font-size: .9rem; color: var(--muted); }
+kbd { font: 500 .78rem var(--mono); background: var(--surface-2); border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 0 .3rem; }
+
+/* Meters */
+.meter-cell { display: flex; flex-direction: column; gap: .3rem; min-width: 7.5rem; }
+.meter { display: flex; gap: 2px; }
+.meter i { width: 12px; height: 6px; border-radius: 1px; background: var(--surface-2); outline: 1px solid var(--line); outline-offset: -1px; }
+.meter i.on { background: var(--accent); outline-color: var(--accent); }
+.meter.risk i.on { background: var(--stress); outline-color: var(--stress); }
+.meter-label { font-size: .82rem; font-weight: 500; }
+.meter-note { font-size: .76rem; color: var(--muted); line-height: 1.35; }
+.callout { border-left: 3px solid var(--accent); background: var(--surface); padding: 1rem 1.2rem; border-radius: 0 10px 10px 0; max-width: 50rem; font-size: .98rem; }
+
+/* Questions */
+.qgroups { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.qgroups .panel ol { padding-left: 1.2rem; display: flex; flex-direction: column; gap: .55rem; font-size: .92rem; }
+.qgroups .panel ol li::marker { font-family: var(--mono); color: var(--muted); font-size: .8rem; }
+
+/* Sources */
+.sources { columns: 2 20rem; column-gap: 2.5rem; }
+.src-group { break-inside: avoid; margin-bottom: 1.6rem; display: flex; flex-direction: column; gap: .5rem; }
+.src-group h3 { font: 600 .74rem/1.2 var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.src-group ul { list-style: none; display: flex; flex-direction: column; gap: .32rem; font-size: .86rem; line-height: 1.4; }
+.foot { border-top: 1px solid var(--line); padding-top: 1.4rem; font-size: .84rem; color: var(--muted); display: flex; flex-direction: column; gap: .5rem; max-width: 50rem; }
+code { font-family: var(--mono); font-size: .86em; background: var(--surface-2); padding: .05rem .3rem; border-radius: 4px; }
+
+@media (max-width: 1080px) {
+  .paradigms { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .qgroups { grid-template-columns: minmax(0, 1fr); }
+  .concept { grid-template-columns: 2.6rem minmax(0, 1fr); }
+  .concept .prec { grid-column: 2; }
+}
+@media (max-width: 920px) {
+  .page { grid-template-columns: minmax(0, 1fr); gap: 2rem; padding-inline: 18px; padding-block: 28px 72px; }
+  .toc { position: static; }
+  .toc ol { flex-direction: row; overflow-x: auto; border-left: 0; border-bottom: 1px solid var(--line); gap: 0; padding-bottom: 0; }
+  .toc a { white-space: nowrap; border-left: 0; border-bottom: 2px solid transparent; padding: .5rem .7rem; margin: 0 0 -1px; }
+  .toc a.active { border-bottom-color: var(--accent); }
+  main { gap: 3.5rem; }
+}
+@media (max-width: 680px) {
+  .findings, .split, .anatomy, .variants, .patterns, .paradigms { grid-template-columns: minmax(0, 1fr); }
+  .fig-foot { grid-template-columns: minmax(0, 1fr); }
+  h2 { font-size: 1.55rem; }
+  .deck { font-size: 1.05rem; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <nav class="toc" aria-label="Contents">
+    <div class="toc-label">Contents</div>
+    <ol>
+      <li><a href="#summary">Summary</a></li>
+      <li><a href="#baseline">Where Sahi starts</a></li>
+      <li><a href="#landscape">Who uses AI</a></li>
+      <li><a href="#guardrails">Rules and risks</a></li>
+      <li><a href="#canvas">Value-chain canvas</a></li>
+      <li><a href="#catalogue">Concept catalogue</a></li>
+      <li><a href="#desktop">Desktop patterns</a></li>
+      <li><a href="#trust">Trust principles</a></li>
+      <li><a href="#whitespace">White space</a></li>
+      <li><a href="#questions">Open questions</a></li>
+      <li><a href="#sources">Sources</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <header class="masthead">
+      <div class="eyebrow">UX research · Trading &amp; investing · Desktop</div>
+      <h1>Sahi AI Opportunity Map</h1>
+      <p class="deck">How brokers in India and abroad use AI for traders and investors, the rules that shape it, and 46 desktop concepts for Sahi. Includes a deep dive on a live value-chain canvas for fundamentals investors.</p>
+      <div class="status-row">
+        <span class="chip">Updated <b>8 Oct 2026</b></span>
+        <span class="chip">Stage <b>Research, not a build plan</b></span>
+        <span class="chip">Scope <b>web.sahi.com and desktop</b></span>
+      </div>
+    </header>
+
+    <section id="summary">
+      <div class="sec-head">
+        <h2>Summary</h2>
+        <p class="lede">Seven findings from the scan of brokers, research tools and regulators.</p>
+      </div>
+      <ul class="findings">
+        <li><strong>Explaining price moves is now standard</strong><span>Robinhood Cortex, Public Alpha, eToro Tori, IBKR and Groww GR-1 all explain why a stock moved in plain language. On its own, that won't set Sahi apart.</span></li>
+        <li><strong>AI agents arrived in 2026, with limits</strong><span>Public, eToro, Futu, Webull and Upstox now let AI place trades. Each caps the budget, limits which stocks it can touch, previews orders and has an off switch.</span></li>
+        <li><strong>Indian brokers are taking two routes</strong><span>Zerodha, Kotak and Upstox let users connect their own AI. Groww, Dhan, Angel One and Kotak are building in-house analysts. Nobody has AI built for active F&amp;O traders, Sahi's core users.</span></li>
+        <li><strong>The value-chain canvas fills a real gap</strong><span>Supply-chain maps exist only in professional terminals like Bloomberg and FactSet. This scan found no retail product. The 2021 chip shortage and 2025 rare-earth curbs show the need in Indian auto.</span></li>
+        <li><strong>Trader discipline is the biggest gap</strong><span>Over 91% of individual F&amp;O traders lost money in FY25, about ₹1.06 lakh crore in total. Brokers barely use AI to protect traders from themselves.</span></li>
+        <li><strong>Regulation sets the boundary</strong><span>SEBI's AI rules are close and call for human oversight and kill switches. AI that says "buy X" counts as regulated advice. The safe ground is AI that explains, compares, simulates and protects.</span></li>
+        <li class="wide"><strong>Desktop is where AI goes deepest</strong><span>Robinhood Legend, IBKR Desktop, Bloomberg ASKB and eToro's new desktop platform put AI inside dense, multi-panel work: canvases, command bars, right-click explain, saved workflows. An n8n-style canvas fits naturally here.</span></li>
+      </ul>
+    </section>
+
+    <section id="baseline">
+      <div class="sec-head">
+        <h2>Where Sahi starts</h2>
+        <p class="lede">Sahi already has trader DNA and a detection layer. The gaps are the layers that turn a signal into understanding.</p>
+      </div>
+      <div class="split">
+        <div class="panel">
+          <h3>Already there</h3>
+          <ul class="ticks">
+            <li>Flat ₹10 per order, aimed at F&amp;O and intraday traders</li>
+            <li>Web platform at web.sahi.com, plus Android and iOS apps</li>
+            <li>1-click chart trading, trailing stop-loss, Scalper Mode</li>
+            <li>20+ real-time scanners: volume shockers, breakouts, gap up/down, golden and death cross, 52-week high/low</li>
+            <li>Option chain with payoff graphs and Greeks; GTT, GTC and basket orders</li>
+            <li>Sahi AI flags breakouts, trend shifts and unusual activity in real time</li>
+          </ul>
+        </div>
+        <div class="panel missing">
+          <h3>Layers that are missing</h3>
+          <ul class="ticks">
+            <li><span><b>Explanation.</b> Why did it move?</span></li>
+            <li><span><b>Context.</b> What usually happens next, and how does it affect my positions?</span></li>
+            <li><span><b>Discipline.</b> Protecting traders from revenge trading, overtrading and rule drift.</span></li>
+            <li><span><b>Investor layer.</b> Fundamentals, theses and value chains for people who don't trade off charts.</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="note">Based on public broker listings, not Sahi's internal roadmap.</p>
+    </section>
+
+    <section id="landscape">
+      <div class="sec-head">
+        <h2>Who is using AI</h2>
+        <p class="lede">Indian brokers, global brokers, and the professional tools that already map value chains.</p>
+      </div>
+
+      <div class="sub">
+        <h3>Indian brokers and platforms</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Player</th><th>What they've shipped</th><th>How it works</th><th>Note</th></tr></thead>
+            <tbody>
+              <tr><td class="name">Zerodha</td><td><b>Kite MCP</b> (2025) connects Claude and other assistants to holdings, positions, orders and P&amp;L, for asks like allocation drift and sector exposure. <b>Nudges</b> warn before risky trades (penny stocks, illiquid, T2T). Partners: Tijori, Sensibull.</td><td>Bring your own AI, with consent per tool. Order placement only if granted.</td><td class="muted">Zerodha says penny-stock volumes fell over 50% after nudges. Company claim, not independently verified.</td></tr>
+              <tr><td class="name">Groww</td><td><b>GR-1</b> (Groww Next, Feb 2026) reads markets, tracks news sentiment and personalises insight to the portfolio. Explains why a fund was recommended. Drafts an order review card or alert but never places trades. MF Prime adds health checks, SIP monitoring and nudges.</td><td>In-app assistant, opt-in, layered consent.</td><td class="muted">Pilot of 30,000 to 50,000 users reported in March 2026.</td></tr>
+              <tr><td class="name">Dhan <small>Raise Financial</small></td><td><b>Fuzz</b>, an India-focused finance model announced Aug 2025. Promises traceable, source-backed answers and data kept in India.</td><td>Research assistant for serious investors.</td><td class="muted">$120M Series B (Oct 2025), partly for AI. Current live status unconfirmed.</td></tr>
+              <tr><td class="name">Angel One</td><td><b>ARQ Prime</b> algorithmic recommendations. <b>Ask Angel</b> assistant with 1.1M+ users. AI in onboarding, tickets and an internal analytics agent. Says it is betting on voice AI.</td><td>Assistant plus recommendation engine.</td><td class="muted">Some analysts say parts of the "AI" are research-analyst calls.</td></tr>
+              <tr><td class="name">Upstox</td><td>Support copilot (35% fewer agent handovers). <b>Agent Skill</b> (June 2026) lets Claude Code and Codex place live orders, stream data and manage portfolios. Claude plugin install (Sept 2026), read-only or trading.</td><td>Agent-first, with confirmations, LIMIT by default, lot-size checks, kill switch and sandbox.</td><td class="muted">The clearest Indian example of agent guardrails.</td></tr>
+              <tr><td class="name">Kotak Neo</td><td><b>Neome</b>, a multilingual assistant over Kotak research. <b>Kotak Neo MCP</b> for holdings, order book and research in Claude or Cursor. Retail business rebranded as Kotak Neo (Oct 2026).</td><td>Assistant plus MCP.</td><td class="muted">Multilingual is a notable India angle.</td></tr>
+              <tr><td class="name">Perplexity Finance</td><td>Free live earnings-call transcripts and concall schedules for NSE and BSE companies (Aug 2025).</td><td>Research surface outside brokers.</td><td class="muted">Concall intelligence is becoming free.</td></tr>
+              <tr><td class="name">Tijori</td><td>Supply-chain links, revenue mix, raw-material prices and sector dashboards, built from annual reports and investor decks.</td><td>Research tool.</td><td class="muted">Auto discloses suppliers and customers more than pharma or chemicals do.</td></tr>
+              <tr><td class="name">Sensibull, Opstra</td><td>Options strategy suggestions from a market view, payoff, Greeks, IV percentile, OI.</td><td>Rule-based strategy builders.</td><td class="muted">No true AI layer found. Room for an options copilot.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sub">
+        <h3>Global brokers and tools</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Player</th><th>AI features</th><th>Why it matters for Sahi</th></tr></thead>
+            <tbody>
+              <tr><td class="name">Robinhood <small>Cortex, Gold-only in US</small></td><td><b>Digests</b> explain what's moving a stock or the whole portfolio. Conversational assistant for holdings, research and orders. <b>Natural-language scans and custom indicators</b> in Legend, its browser-based desktop platform.</td><td>A desktop scanner and indicator builder that maps directly onto Sahi's scanners.</td></tr>
+              <tr><td class="name">Public.com</td><td><b>Alpha</b> co-pilot on every asset page. <b>Generated Assets</b> (May 2025) turn a theme into a backtested index; 2,500+ built in the first month. <b>Agents</b> (2026) act on plain-English instructions after asking follow-up questions, with an activity log and pause.</td><td>Theme-to-basket, and instructions that become agents after clarifying questions.</td></tr>
+              <tr><td class="name">eToro <small>Tori</small></td><td>Memory across sessions, X sentiment, <b>Agent Portfolios</b> that can only trade inside an allotted sub-portfolio, proactive "why it moved" alerts. New desktop platform for active traders (July 2026).</td><td>Autonomy scoped by a sub-portfolio budget.</td></tr>
+              <tr><td class="name">Webull <small>Vega</small></td><td>Reviews the portfolio against stated goals. <b>Alerts when trading behaviour drifts from the user's own strategy.</b> Voice orders show the interpreted order before submitting. External chatbots can trade with symbol lists, size caps, forced preview or read-only.</td><td>Drift alerts and "show interpretation first" are directly reusable.</td></tr>
+              <tr><td class="name">moomoo, Futu</td><td>Trend projection that compares a chart with patterns from up to 100 other stocks. Digests from 200+ sources. <b>Expert</b> agent mode (July 2026) from strategy generation to simulated trading.</td><td>Pattern analogues and strategy-to-paper-trade flow.</td></tr>
+              <tr><td class="name">Tiger Brokers <small>TigerGPT</small></td><td>DeepSeek-R1 reasoning model (Feb 2025) for multi-step market analysis. 1.17M conversations since 2023.</td><td>Reasoning-model research assistant.</td></tr>
+              <tr><td class="name">Interactive Brokers</td><td>AI news summaries filtered to portfolio and watchlist. <b>Ask IBKR</b> (Oct 2025): plain-language portfolio analytics inside IBKR Desktop, with suggested queries and dropdown refiners.</td><td>Natural language plus structured refiners suits desktop power users.</td></tr>
+              <tr><td class="name">Bloomberg <small>ASKB, beta Feb 2026</small></td><td>Multi-agent layer over the Terminal. Cites sources, <b>shows the query code behind each answer</b>, draws annotated charts, saves and re-runs workflows, schedules morning reports.</td><td>The benchmark for trust design in professional finance AI.</td></tr>
+              <tr><td class="name">TradingView <small>Chart Copilot, beta Apr 2026</small></td><td>Trend strength, key levels, patterns and news-based explanations on the chart.</td><td>Chart-native AI.</td></tr>
+              <tr><td class="name">Composer</td><td>Plain-English prompt to a backtested, executable strategy in under a minute. "Help me choose" turns 3 questions into 3 strategies.</td><td>A fast prompt-to-backtest loop.</td></tr>
+              <tr><td class="name">Fiscal.ai <small>formerly FinChat</small></td><td>Copilot over filings, transcripts and 2,250+ segment KPIs, auditable to source filings.</td><td>Segment-level data is what a value-chain view needs.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sub">
+        <h3>Professional value-chain tools</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Tool</th><th>What it shows</th><th>Detail worth borrowing</th></tr></thead>
+            <tbody>
+              <tr><td class="name">Bloomberg SPLC</td><td>Interactive supplier and customer diagram, with supplier margins, inventory vs sales growth and cash cycles.</td><td>Marks some links as "implied", inferred from news and analyst reports.</td></tr>
+              <tr><td class="name">FactSet Revere</td><td>Customers, suppliers, competitors, partners and geographic revenue, from filings and presentations.</td><td>Separates relationship types.</td></tr>
+              <tr><td class="name">Refinitiv, Capital IQ</td><td>Value Chains view and Business Relationships section.</td><td>Peer and relationship browsing.</td></tr>
+              <tr><td class="name">Research</td><td>Bloomberg tested graph neural networks on supply-chain data; a 2026 arXiv paper notes few retail-usable stock knowledge graphs exist.</td><td>Graph-derived signals are an active research area.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">None of these is built for retail investors. This scan found no retail product that maps ripple effects across suppliers and customers.</p>
+      </div>
+
+      <div class="sub">
+        <h3>Patterns across the market</h3>
+        <ul class="patterns">
+          <li><span class="pnum">P1</span><span><b>Explaining moves is table stakes.</b> Digests and "why it moved" are everywhere.</span></li>
+          <li><span class="pnum">P2</span><span><b>Chat becomes an object.</b> The best products turn a prompt into a scan, indicator, strategy or order card the user can edit.</span></li>
+          <li><span class="pnum">P3</span><span><b>Interpretation comes before action.</b> Webull voice preview, Groww order card, Public's follow-up questions.</span></li>
+          <li><span class="pnum">P4</span><span><b>Autonomy has explicit limits.</b> Budgets, symbol lists, caps, kill switches, per-tool consent.</span></li>
+          <li><span class="pnum">P5</span><span><b>Proactive alerts beat reactive chat.</b> Personalised "this matters to you" pushes.</span></li>
+          <li><span class="pnum">P6</span><span><b>Memory and profiles.</b> eToro remembers sessions; Bloomberg stores role and focus.</span></li>
+          <li><span class="pnum">P7</span><span><b>India opens up through MCP.</b> Zerodha, Kotak and Upstox let users bring Claude.</span></li>
+          <li><span class="pnum">P8</span><span><b>Two areas are under-served.</b> Trader discipline, and supply-chain reasoning for retail.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="guardrails">
+      <div class="sec-head">
+        <h2>Rules and risks that shape the design</h2>
+        <p class="lede">Indian regulation and the loss data both point to AI that explains and protects, rather than AI that pushes more trades.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Constraint</th><th>What it says</th><th>Design implication</th></tr></thead>
+          <tbody>
+            <tr><td class="name">SEBI F&amp;O study <small>FY25</small></td><td>Over 91% of individual F&amp;O traders made net losses. Aggregate net loss about ₹1,05,603 crore, up 41% on FY24. FY22–24: 93% lost, over ₹1.8 lakh crore.</td><td>AI that raises trading frequency is risky for users and reputation. AI that protects traders is strong positioning.</td></tr>
+            <tr><td class="name">SEBI AI/ML guidelines <small>due soon</small></td><td>Consultation June 2025. In Aug 2026 the chairman said rules are coming shortly: human oversight, kill switches, tiered approach. The regulated entity is accountable for AI it uses, including third-party tools.</td><td>Visible AI labels, human-in-the-loop for actions, kill switch, audit logs, model testing.</td></tr>
+            <tr><td class="name">Intermediaries amendment <small>2025</small></td><td>Adds a chapter on AI use.</td><td>Same as above.</td></tr>
+            <tr><td class="name">Research analyst and adviser rules</td><td>Since the Dec 2024 amendment, RAs and IAs must disclose how much they use AI tools. "Trading calls" are formally defined.</td><td>AI that says "buy X" is regulated advice. Keep AI explaining, comparing and simulating, unless calls go through a registered RA.</td></tr>
+            <tr><td class="name">Retail algo framework <small>mandatory 1 Apr 2026</small></td><td>Every algo order carries an exchange Algo-ID. The broker is principal; providers are agents. Strategies above 10 orders per second must be registered. Static IP for API use.</td><td>"Describe a strategy and let AI run it" must route through this framework.</td></tr>
+            <tr><td class="name">Exchange AI/ML reporting</td><td>Trading members file half-yearly AI/ML disclosures.</td><td>Keep an inventory of AI features.</td></tr>
+            <tr><td class="name">IOSCO <small>Mar 2025</small></td><td>Flags over-reliance on AI, concentration on a few providers and human-AI interaction risk. Retail herding is a stated concern.</td><td>Don't serve everyone the same AI pick.</td></tr>
+            <tr><td class="name">Trust data</td><td>31% of US investors would act on AI financial advice without verifying it (CFP Board, 2023).</td><td>Users may over-trust AI. Design for verification: citations, confidence, base rates.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="canvas">
+      <div class="sec-head">
+        <h2>Deep dive: the value-chain canvas</h2>
+        <p class="lede">Fundamentals investors reason in causes: inputs, capacity, demand, margins. A value-chain canvas makes that reasoning visible and live. Each link in the chain is a node that changes colour when its signals change, the way n8n shows data moving through a workflow.</p>
+      </div>
+
+      <ul class="bullets">
+        <li><span><b>The need is recent.</b> In Sept 2021 Maruti guided to about 40% of normal output because of the chip shortage. July–September profit fell 66% and about 1.16 lakh vehicles went unbuilt. In 2025, China's rare-earth curbs cut Bajaj Chetak output by about half in July.</span></li>
+        <li><span><b>Signals showed up before the stock moved.</b> Bajaj warned about magnet supply on its May 2025 earnings call, weeks before production was hit.</span></li>
+        <li><span><b>Auto is a good first sector.</b> It discloses suppliers and customers more than most sectors do.</span></li>
+        <li><span><b>No retail competitor.</b> Today this view exists only in professional terminals.</span></li>
+      </ul>
+
+      <figure class="figure" style="margin:0">
+        <div class="fig-controls">
+          <div class="seg" role="group" aria-label="Scenario">
+            <button type="button" data-scn="chips2021" aria-pressed="false">2021 chip shortage</button>
+            <button type="button" data-scn="rare2025" aria-pressed="true">2025 rare-earth curbs</button>
+            <button type="button" data-scn="calm" aria-pressed="false">Calm baseline</button>
+          </div>
+          <label class="toggle" for="held-toggle">
+            <input type="checkbox" id="held-toggle">
+            <span class="switch" aria-hidden="true"></span>
+            Overlay example holdings
+          </label>
+        </div>
+        <div class="steps-row">
+          <span class="steps-label">Replay</span>
+          <div class="steps" id="steps" role="group" aria-label="Timeline steps"></div>
+        </div>
+        <div class="canvas-scroll">
+          <svg id="chain" viewBox="0 0 960 500" role="img" aria-label="Value chain for the Indian auto sector, from raw inputs through components and vehicle makers to demand. Node colours show the state of each link in the selected scenario."></svg>
+        </div>
+        <div class="fig-foot">
+          <div class="caption" aria-live="polite">
+            <span class="cap-when" id="cap-when"></span>
+            <p class="cap-text" id="cap-text"></p>
+            <p class="cap-src" id="cap-src"></p>
+            <p class="cap-held" id="cap-held" hidden></p>
+          </div>
+          <div class="legend">
+            <div class="legend-row">
+              <span class="lg"><i class="lg-ok"></i>Normal</span>
+              <span class="lg"><i class="lg-watch"></i>Watch</span>
+              <span class="lg"><i class="lg-stress"></i>Stress</span>
+              <span class="lg"><i class="lg-bad"></i>Disrupted</span>
+            </div>
+            <div class="legend-row">
+              <span class="lg"><svg viewBox="0 0 28 8" aria-hidden="true"><line x1="0" y1="4" x2="28" y2="4" class="edge"/></svg>Disclosed link</span>
+              <span class="lg"><svg viewBox="0 0 28 8" aria-hidden="true"><line x1="0" y1="4" x2="28" y2="4" class="edge dashed"/></svg>AI-inferred link</span>
+            </div>
+            <p>Illustration built from public reporting. Node states are editorial judgements, not model output.</p>
+          </div>
+        </div>
+      </figure>
+
+      <div class="anatomy">
+        <div class="panel">
+          <h3>Each node carries</h3>
+          <ul>
+            <li><b>State.</b> Normal, watch, stress or disrupted, driven by commodity prices, import data, news, management commentary and peer filings.</li>
+            <li><b>Listed companies at this node,</b> with the user's holdings highlighted.</li>
+            <li><b>Evidence drawer.</b> The news, filings and concall quotes behind the state, dated and sourced.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>Each link carries</h3>
+          <ul>
+            <li><b>Strength.</b> Share of cost or revenue exposed, where disclosed.</li>
+            <li><b>Substitutability.</b> Alternate sources and how easy switching is.</li>
+            <li><b>Lag.</b> How long a shock takes to arrive, given inventory and lead times.</li>
+            <li><b>Provenance.</b> Disclosed (solid) or AI-inferred (dashed), with a confidence level.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sub">
+        <h3>Interactions to explore</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Interaction</th><th>What the user does</th><th>What AI adds</th></tr></thead>
+            <tbody>
+              <tr><td class="name">Build a chain</td><td>Opens any stock and picks "Show value chain".</td><td>Builds the graph from annual reports, investor decks, concalls and peer filings, and labels each link disclosed or inferred.</td></tr>
+              <tr><td class="name">Live status</td><td>Glances at the canvas.</td><td>Colours nodes from live signals and pulses the ones that changed today.</td></tr>
+              <tr><td class="name">Drill down</td><td>Clicks a node.</td><td>Health summary, metric charts such as rare-earth prices, cited evidence, and the listed companies at that node.</td></tr>
+              <tr><td class="name">Show the ripple</td><td>Selects a stressed node.</td><td>Traces first-, second- and third-order effects with estimated lag and size ranges, never point predictions.</td></tr>
+              <tr><td class="name">What-if shock</td><td>Drags a slider, such as "chip supply down 30% for two quarters".</td><td>Scenario narrative plus the most and least exposed companies. Labelled as a simulation.</td></tr>
+              <tr><td class="name">Start from an event</td><td>Types "China restricts rare earths".</td><td>A shock map of exposed sectors and companies, and how much of the user's portfolio sits there.</td></tr>
+              <tr><td class="name">Portfolio overlay</td><td>Turns on "My holdings".</td><td>Highlights held stocks and computes hidden concentration, such as four holdings depending on one input.</td></tr>
+              <tr><td class="name">Compare chains</td><td>Puts two vehicle makers side by side.</td><td>Shows differences in exposure: EV-heavy vs petrol-heavy, import dependence.</td></tr>
+              <tr><td class="name">Replay</td><td>Scrubs back to 2021 or mid-2025, as in the figure above.</td><td>Shows how the chain turned red and how the stocks reacted, which teaches the pattern.</td></tr>
+              <tr><td class="name">Watch a node</td><td>Pins "Semiconductors".</td><td>Alerts when the node changes state, with what it means for the user's holdings.</td></tr>
+              <tr><td class="name">Thesis-break map</td><td>Marks the nodes that would break the thesis.</td><td>Monitors those nodes and links to the thesis tracker.</td></tr>
+              <tr><td class="name">Ask the canvas</td><td>Asks "Which auto ancillaries gain if EV adoption speeds up?"</td><td>Answers on the canvas by highlighting nodes and paths, not only in chat.</td></tr>
+              <tr><td class="name">Zoom levels</td><td>Scrolls out or in.</td><td>Economy, sector, company and component levels, like a map.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sub">
+        <h3>Same canvas, other lenses</h3>
+        <ul class="variants">
+          <li><b>Macro transmission</b><span>Repo rate to bank margins to NBFC lending to auto loans to two-wheeler demand. Crude to oil marketers, paints, tyres, aviation. Monsoon to rural income to tractors and FMCG. Rupee to IT and pharma exporters.</span></li>
+          <li><b>Policy and Budget</b><span>A scheme, duty or tax change, with who gains, who loses and by roughly how much.</span></li>
+          <li><b>Themes</b><span>EV, defence, railways, data centres, semiconductors. The chain doubles as discovery: which listed company makes this part?</span></li>
+          <li><b>Competition</b><span>Peers, substitutes and new entrants around a company.</span></li>
+          <li><b>News spillovers</b><span>One company's news re-prices linked firms. An AI product launch in Feb 2026 hit data and analytics stocks that had no part in it.</span></li>
+          <li><b>Other sectors</b><span>Pharma and China API dependence; IT and US client budgets; FMCG and palm oil; cement and coal; aviation and fuel or engine supply.</span></li>
+        </ul>
+      </div>
+
+      <div class="sub">
+        <h3>Hard problems to research</h3>
+        <ul class="bullets">
+          <li><span><b>Data completeness.</b> Supply-chain disclosure is thin. The US only requires naming customers above 10% of revenue, and India has no full mandate.</span></li>
+          <li><span><b>Inferred links.</b> Users need to see what is disclosed and what is guessed, without clutter.</span></li>
+          <li><span><b>Correlation vs causation.</b> Use ranges, lags and "exposed to" language, never "will fall".</span></li>
+          <li><span><b>Staleness.</b> Chain structure changes slowly; node states change daily. Refresh them on different cycles.</span></li>
+          <li><span><b>Cognitive load.</b> Real chains are hairballs. Use progressive disclosure and a "show only what changed" mode.</span></li>
+          <li><span><b>The advice line.</b> A list of exposed companies can read as a recommendation, so it needs careful framing.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="catalogue">
+      <div class="sec-head">
+        <h2>Concept catalogue</h2>
+        <p class="lede">46 ideas across the trading and investing loop, each with the closest existing product. Filter by stage or by who it serves.</p>
+      </div>
+      <div class="filters">
+        <div class="filter-row">
+          <span>Stage</span>
+          <div id="f-stage" role="group" aria-label="Filter by stage"></div>
+        </div>
+        <div class="filter-row">
+          <span>For</span>
+          <div id="f-user" role="group" aria-label="Filter by user"></div>
+        </div>
+        <p class="count" id="cat-count" aria-live="polite"></p>
+      </div>
+      <div id="cat-list" class="sub"></div>
+    </section>
+
+    <section id="desktop">
+      <div class="sec-head">
+        <h2>Desktop interface patterns</h2>
+        <p class="lede">Desktop users have screen space, a keyboard and often a second monitor. These patterns make use of that.</p>
+      </div>
+      <ul class="paradigms">
+        <li><b>Canvas workspace</b><span>n8n-style nodes for value chains, strategies (condition to action) and research boards linking notes, charts and AI findings.</span></li>
+        <li><b>Command palette</b><span><kbd>Ctrl</kbd> <kbd>K</kbd> to navigate, ask and act from the keyboard. Active traders live on the keyboard.</span></li>
+        <li><b>Right-click explain</b><span>Explain, compare, alert or add to thesis on any candle, option-chain cell, holding row or node.</span></li>
+        <li><b>Side-panel copilot with memory</b><span>Keeps context across sessions and learns the user's style.</span></li>
+        <li><b>Layouts set up by intent</b><span>"Set up for Bank Nifty expiry scalping" arranges the 1-minute chart, option chain, OI, positions and P&amp;L.</span></li>
+        <li><b>Saved AI workflows</b><span>Re-run "my Friday portfolio review" with one click, as Bloomberg ASKB does.</span></li>
+        <li><b>Chat that produces objects</b><span>Every answer can become a scan, alert, strategy, chart or basket the user edits directly.</span></li>
+        <li><b>Second-screen pop-outs</b><span>Move the copilot, canvas or journal to another monitor.</span></li>
+        <li><b>Hindi, Hinglish and voice</b><span>Plain-language explanations in the user's language. Angel One and Kotak are already moving here.</span></li>
+      </ul>
+    </section>
+
+    <section id="trust">
+      <div class="sec-head">
+        <h2>Trust principles</h2>
+        <p class="lede">Patterns taken from the products above, and what each would mean on Sahi.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Principle</th><th>Seen at</th><th>For Sahi</th></tr></thead>
+          <tbody>
+            <tr><td class="name">Cite everything</td><td>Bloomberg ASKB, Dhan Fuzz, Fiscal.ai</td><td>Every claim links to a filing, news item or data point.</td></tr>
+            <tr><td class="name">Show the logic</td><td>ASKB shows query code; Robinhood indicators compile to rules</td><td>Scans, strategies and indicators appear as editable rules.</td></tr>
+            <tr><td class="name">Interpret before acting</td><td>Webull voice preview, Groww order card, Public follow-up questions</td><td>Every AI-initiated action produces a preview card that needs a click to confirm.</td></tr>
+            <tr><td class="name">Scoped autonomy</td><td>eToro sub-portfolio, Webull caps, Zerodha per-tool consent</td><td>Budgets, symbol lists, size caps, read-only by default.</td></tr>
+            <tr><td class="name">Kill switch and audit log</td><td>Upstox, Public, SEBI's direction</td><td>One click stops every agent, with a full history.</td></tr>
+            <tr><td class="name">Inform, don't recommend</td><td>Robinhood, Tori and GR-1 disclaimers; SEBI RA rules</td><td>Explain, compare, simulate. No buy or sell calls outside a registered RA, with AI use disclosed.</td></tr>
+            <tr><td class="name">Ranges and base rates</td><td>Good research practice</td><td>"Historically 4–9% follow-through" instead of "will go up".</td></tr>
+            <tr><td class="name">Show uncertainty</td><td>Bloomberg "implied" links</td><td>Disclosed vs inferred, with confidence levels.</td></tr>
+            <tr><td class="name">Avoid herding</td><td>IOSCO concerns</td><td>Personalise. Don't push the same top pick to everyone.</td></tr>
+            <tr><td class="name">Data stays in India</td><td>Dhan Fuzz</td><td>Helps with regulation and trust.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="whitespace">
+      <div class="sec-head">
+        <h2>Where the white space is</h2>
+        <p class="lede">A qualitative read to steer the next research round. Not a roadmap.</p>
+      </div>
+      <div class="table-wrap">
+        <table id="ws-table">
+          <thead><tr><th>Concept cluster</th><th>User value</th><th>Needs AI</th><th>Stands out vs Indian peers</th><th>Indian data</th><th>Regulatory or trust risk</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="callout">Two clusters are both distinctive and fit Sahi: the <b>value-chain canvas</b> on the investor side, and the <b>discipline layer</b> on the trader side, which has a strong ethical story given SEBI's loss data. A third option, the <b>options copilot</b>, builds directly on what Sahi's traders already use.</p>
+    </section>
+
+    <section id="questions">
+      <div class="sec-head">
+        <h2>Open questions for user research</h2>
+        <p class="lede">What to test before choosing a direction.</p>
+      </div>
+      <div class="qgroups">
+        <div class="panel">
+          <h3>Investors and the canvas</h3>
+          <ol>
+            <li>Do fundamentals investors want to understand the chain themselves, or only hear when something breaks?</li>
+            <li>How much do they trust AI-inferred links? Does one dashed link lower trust in the whole canvas?</li>
+            <li>Which start feels natural: company first, or shock first?</li>
+            <li>How deep can the chain go before it becomes a hairball?</li>
+            <li>Is this worth paying for, or is it a free engagement driver?</li>
+          </ol>
+        </div>
+        <div class="panel">
+          <h3>Traders and discipline</h3>
+          <ol>
+            <li>Will active traders accept friction such as cool-downs and loss locks? Must they set it themselves?</li>
+            <li>Where does a helpful nudge become nagging?</li>
+            <li>Do traders want a live narrator in market hours, or only reviews after the session?</li>
+          </ol>
+        </div>
+        <div class="panel">
+          <h3>Both</h3>
+          <ol>
+            <li>Chat, canvas or command bar: which mode suits which job?</li>
+            <li>How much citation makes AI feel trustworthy without slowing users down?</li>
+            <li>English only, or Hindi and Hinglish too? Is voice useful on desktop?</li>
+            <li>How do users feel about AI acting for them? Which limits make it feel safe?</li>
+          </ol>
+        </div>
+      </div>
+      <p class="prose muted" style="font-size:.95rem">Suggested methods: contextual inquiry with 5–8 F&amp;O traders and 5–8 fundamentals investors; a diary study through one results season; concept tests of a static value-chain canvas for one carmaker; card sorting of the catalogue by perceived value.</p>
+    </section>
+
+    <section id="sources">
+      <div class="sec-head">
+        <h2>Sources</h2>
+        <p class="lede">Several broker details come from press releases, reviews and aggregators. Check the product directly before quoting a detail externally.</p>
+      </div>
+      <div class="sources">
+        <div class="src-group">
+          <h3>Sahi</h3>
+          <ul>
+            <li><a href="https://www.chittorgarh.com/stockbroker/Sahi/184/">Chittorgarh: Sahi broker review</a></li>
+            <li><a href="https://www.investorgain.com/discount/sahi-review/">Investorgain: Sahi review</a></li>
+          </ul>
+        </div>
+        <div class="src-group">
+          <h3>Indian brokers and platforms</h3>
+          <ul>
+            <li><a href="https://zerodha.com/z-connect/featured/connect-your-zerodha-account-to-ai-assistants-with-kite-mcp">Zerodha: Kite MCP</a></li>
+            <li><a href="https://support.zerodha.com/category/trading-and-markets/alerts-and-nudges/nudges/articles/what-is-nudge">Zerodha: What is a nudge</a></li>
+            <li><a href="https://thinkinsights.net/consulting/zerodhas-nudge-theory-playbook">ThinkInsights: Zerodha's nudge playbook</a></li>
+            <li><a href="https://zerodha.com/z-connect/business-updates/new-on-tijori">Zerodha: New on Tijori</a></li>
+            <li><a href="https://forum.valuepickr.com/t/tijori-view-key-non-financial-metrics-from-annual-reports/19594?page=2">ValuePickr: Tijori data sources</a></li>
+            <li><a href="https://entrackr.com/news/groww-showcases-ai-powered-investing-tools-at-groww-next-2026-11168623">Entrackr: Groww Next 2026</a></li>
+            <li><a href="https://groww.in/updates/gr-1-ai-investing-assistant-groww">Groww: GR-1</a></li>
+            <li><a href="https://www.business-standard.com/companies/news/groww-builds-ai-powered-platform-across-trading-wealth-and-fixed-income-126022800536_1.html">Business Standard: Groww's AI platform</a></li>
+            <li><a href="https://completeaitraining.com/news/raise-financial-services-launches-fuzz-ai-for-serious/">Raise launches Fuzz</a></li>
+            <li><a href="https://ibsintelligence.com/ibsi-news/raise-financial-services-raises-120m-to-fuel-ai-and-investing-innovation/">IBS Intelligence: Raise raises $120M</a></li>
+            <li><a href="https://www.investing.com/news/transcripts/earnings-call-transcript-angel-one-q1-2026-profit-jumps-as-growth-cools-93CH-4794754">Investing.com: Angel One call transcript</a></li>
+            <li><a href="https://www.multibagg.ai/market-pulse/articles/angel-one-q3-fy26-growth-90356">Multibagg: Angel One Q3 FY26</a></li>
+            <li><a href="https://marketseasy.in/blog/indian-brokers-ai-signals-intraday-breakout-stocks-2026">MarketsEasy: Indian brokers and AI signals</a></li>
+            <li><a href="https://upstox.com/developer/api-documentation/announcements/agent-skills-launch/">Upstox: Agent Skill launch</a></li>
+            <li><a href="https://www.microsoft.com/en-in/aifirstmovers/upstox">Microsoft: Upstox support copilot</a></li>
+            <li><a href="https://www.kotakneo.com/platform/kotak-neo-mcp/">Kotak Neo MCP</a></li>
+            <li><a href="https://www.thehansindia.com/business/market-compass/kotak-securities-rebrands-as-kotak-neo-1130092">Hans India: Kotak Neo rebrand</a></li>
+            <li><a href="https://techcrunch.com/2025/08/18/perplexity-now-supports-live-earnings-call-transcripts-for-indian-stocks/">TechCrunch: Perplexity Indian transcripts</a></li>
+            <li><a href="https://zerodha.com/z-connect/tradezerodha/sensibull/introducing-sensibull-the-options-trading-platform">Zerodha: Introducing Sensibull</a></li>
+          </ul>
+        </div>
+        <div class="src-group">
+          <h3>Global brokers and tools</h3>
+          <ul>
+            <li><a href="https://robinhood.com/us/en/support/articles/cortex">Robinhood: Cortex</a></li>
+            <li><a href="https://robinhood.com/us/en/support/articles/cortex-digests">Robinhood: Cortex Digests</a></li>
+            <li><a href="https://benzinga.com/markets/tech/25/08/47252402/robinhood-unveils-cortex-ai-tool-digests-in-uk-bringing-real-time-stock-explanations-to-everyday-investors-after-95-us-approval">Benzinga: Cortex Digests in the UK</a></li>
+            <li><a href="https://www.tipranks.com/news/the-fly/robinhood-product-manager-introduces-custom-scans-widget-within-cortex-thefly">The Fly: Cortex custom scans</a></li>
+            <li><a href="https://fxnewsgroup.com/forex-news/retail-forex/public-introduces-ai-based-investing-co-pilot-alpha/">FX News Group: Public Alpha</a></li>
+            <li><a href="https://fxnewsgroup.com/forex-news/retail-forex/public-introduces-new-phase-of-its-ai-vision-agentic-brokerage/">FX News Group: Public agentic brokerage</a></li>
+            <li><a href="https://e-commerce.news/story/public-rolls-out-ai-agents-to-automate-trading-strategies">eCommerce News: Public AI agents</a></li>
+            <li><a href="https://www.sahmcapital.com/news/content/etoro-launches-new-app-ai-first-smart-and-social-2026-07-07">Sahm Capital: eToro AI-first app</a></li>
+            <li><a href="https://www.quiverquant.com/news/eToro+Unveils+AI-First+Mobile+App%2C+Agentic+Trading+Tools+and+New+Desktop+Platform+at+London+Event">Quiver Quant: eToro London event</a></li>
+            <li><a href="https://www.financemagnates.com/forex/webull-voice-activated-stock-orders-come-to-free-ai-tool">Finance Magnates: Webull voice orders</a></li>
+            <li><a href="https://www.stork.ai/en/webull">Stork.ai: Webull overview</a></li>
+            <li><a href="https://moomoo.com/au/feature/aitrading">moomoo: AI features</a></li>
+            <li><a href="https://macaubusiness.com/futu-unveils-major-ai-upgrade-making-professional-agentic-investing-accessible-to-all-seize-the-next-rally-with-futu-ai">Macau Business: Futu AI upgrade</a></li>
+            <li><a href="https://www.aap.com.au/aapreleases/cision20250218ae21242/">AAP: TigerGPT and DeepSeek</a></li>
+            <li><a href="https://www.businesswire.com/news/home/20241211090832/en">Business Wire: IBKR AI news summaries</a></li>
+            <li><a href="https://goodmoneyguide.com/investing/interactive-brokers-launches-ask-ibkr-an-ai-tool-that-offers-instant-portfolio-insights/">Good Money Guide: Ask IBKR</a></li>
+            <li><a href="https://fxnewsgroup.com/forex-news/platforms/interactive-brokers-adds-ask-ibkr-functionality-to-ibkr-desktop-platform/">FX News Group: Ask IBKR on Desktop</a></li>
+            <li><a href="https://thetradenews.com/bloomberg-embeds-agentic-ai-into-the-terminal">The TRADE: Bloomberg ASKB</a></li>
+            <li><a href="https://fintech.global/2026/08/19/bloomberg-extends-askb-ai-assistant-to-mobile-devices/">FinTech Global: ASKB on mobile</a></li>
+            <li><a href="https://blog.traderspost.io/article/best-ai-trading-tools-tradingview-2026">TradersPost: TradingView AI 2026</a></li>
+            <li><a href="https://www.businesswire.com/news/home/20251021050436/en/Composer-Supercharges-Investing-Platform-with-New-Trade-With-AI-Tool">Business Wire: Composer Trade with AI</a></li>
+            <li><a href="https://traderhq.com/koyfin-vs-finchat/">TraderHQ: Koyfin vs Fiscal.ai</a></li>
+            <li><a href="https://www.tradezella.com/blog/ai-trading-coach">Tradezella: AI trading coach</a></li>
+            <li><a href="https://alternativeto.net/software/stoptilt/about/">AlternativeTo: StopTilt</a></li>
+          </ul>
+        </div>
+        <div class="src-group">
+          <h3>Value chains</h3>
+          <ul>
+            <li><a href="https://prod.libraries.emory.edu/sites/default/files/migrated-documents/db-pages/bloomberg-splc.pdf">Emory: Bloomberg SPLC guide</a></li>
+            <li><a href="https://blogs.cranfield.ac.uk/library/supply-chain-bloomberg-workspace">Cranfield: Supply chains on Bloomberg</a></li>
+            <li><a href="https://www.finextra.com/pressarticle/51462/factset-buys-revere-data">Finextra: FactSet buys Revere</a></li>
+            <li><a href="https://www.library.hbs.edu/services/help-center/supply-chain-relationships">HBS Library: Supply-chain relationships</a></li>
+            <li><a href="https://arxiv.org/html/2601.11528v1">arXiv: Stock market knowledge graphs</a></li>
+            <li><a href="https://www.bloomberg.com/news/videos/2026-02-04/anthropic-ai-tool-sparks-stocks-selloff-video">Bloomberg: AI tool sparks sell-off</a></li>
+            <li><a href="https://www.brattle.com/wp-content/uploads/2026/05/How-Spillover-Effects-Can-Skew-AI-Securities-Class-Actions-1.pdf">Brattle: Spillover effects</a></li>
+          </ul>
+        </div>
+        <div class="src-group">
+          <h3>Auto-sector shocks</h3>
+          <ul>
+            <li><a href="https://www.moneylife.in/article/semiconductor-shortage-to-dent-maruti-suzukis-production-in-august/64763.html">Moneylife: Chip shortage dents Maruti in August 2021</a></li>
+            <li><a href="https://www.mobilityoutlook.com/news/maruti-suzuki-to-cut-production-in-september-expects-40-of-normal-output/">Mobility Outlook: Maruti at 40% of output</a></li>
+            <li><a href="https://www.orissapost.com/maruti-suzuki-expects-production-to-be-hit-in-november-amid-semiconductor-shortage/amp/">Orissa Post: Maruti November output</a></li>
+            <li><a href="https://www.tickertape.in/blog/semiconductor-shortage-maruti-suzuki/">Tickertape: Chip shortage and Maruti</a></li>
+            <li><a href="https://techxplore.com/news/2022-01-india-tata-motors-red-chip.html">TechXplore: Tata Motors and chips</a></li>
+            <li><a href="https://mobilityoutlook.com/news/jlr-expects-q2-wholesale-to-drop-by-50-due-to-chip-shortage">Mobility Outlook: JLR wholesale drop</a></li>
+            <li><a href="https://www.bloomberg.com/news/articles/2025-05-29/china-magnet-curbs-threaten-india-auto-output-bajaj-warns">Bloomberg: Bajaj warns on magnets</a></li>
+            <li><a href="https://www.businesstoday.in/amp/latest/corporate/story/looking-at-zero-month-in-august-rajiv-bajaj-says-bajaj-autos-ev-production-hit-hard-by-china-s-rare-earth-move-486258-2025-07-25">Business Today: "Zero month" warning</a></li>
+            <li><a href="https://www.autocarindia.com/industry-amp/bajaj-chetak-production-slumps-in-july-amid-rare-earth-magnet-crunch-436723">Autocar India: Chetak output slumps</a></li>
+            <li><a href="https://www.outlookbusiness.com/corporate/e-scooter-chetak-supplies-resumed-sufficient-supply-of-rare-earth-magnets-secured-bajaj-auto">Outlook Business: Chetak resumes</a></li>
+            <li><a href="https://www.outlookbusiness.com/industry/china-rare-earth-curbs-india-ev-shortage">Outlook Business: Rare-earth curbs and EVs</a></li>
+          </ul>
+        </div>
+        <div class="src-group">
+          <h3>Regulation and risk</h3>
+          <ul>
+            <li><a href="https://www.business-standard.com/markets/news/net-losses-of-traders-in-fo-widens-in-fy25-sebi-study-125070701221_1.html">Business Standard: F&amp;O losses FY25</a></li>
+            <li><a href="https://www.sebi.gov.in/media-and-notifications/press-releases/sep-2024/updated-sebi-study-reveals-93-of-individual-traders-incurred-losses-in-equity-fando-between-fy22-and-fy24-aggregate-losses-exceed-1-8-lakh-crores-over-three-years_86906.html">SEBI: F&amp;O losses FY22–24</a></li>
+            <li><a href="https://taxguru.in/sebi/sebi-proposes-guidelines-responsible-usage-ai-ml-indian-securities-markets.html">TaxGuru: SEBI AI/ML proposals</a></li>
+            <li><a href="https://www.moneylife.in/article/ai-in-markets-sebi-to-mandate-human-oversight-kill-switches-and-data-controls-says-pandey/81406.html">Moneylife: Oversight and kill switches</a></li>
+            <li><a href="https://taxmann.com/post/blog/sebi-mandates-ias-and-ras-to-disclose-use-of-ai-tools-in-providing-investment-advice-research-services-to-clients">Taxmann: RA and IA AI disclosure</a></li>
+            <li><a href="https://www.sansalegal.com/post/sebi-algorithmic-trading-framework-2026-what-retail-traders-in-india-must-know">Sansa Legal: Algo framework 2026</a></li>
+            <li><a href="https://www.mondaq.com/india/new-technology/1770328/nse-circular-on-aiml-reporting-what-trading-members-need-to-know">Mondaq: NSE AI/ML reporting</a></li>
+            <li><a href="https://www.regulationtomorrow.com/2025/03/iosco-consults-on-ai-in-capital-markets/">Regulation Tomorrow: IOSCO on AI</a></li>
+            <li><a href="https://www.iosco.org/library/speeches/pdf/20250514-Jean-Paul-Servais.pdf">IOSCO: Chair speech, May 2025</a></li>
+            <li><a href="https://www.cnbc.com/2023/08/24/31percent-of-investors-are-ok-with-using-ai-as-their-financial-advisor.html">CNBC: Investors and AI advice</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot">
+        <p>Markdown version: <code>research/ai-trading-investing-experiences.md</code> in the sahi-cc repository.</p>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+(function () {
+  const SVGNS = "http://www.w3.org/2000/svg";
+  const STATE_LABEL = { normal: "Normal", watch: "Watch", stress: "Stress", bad: "Disrupted" };
+
+  // ---- Value chain data ----
+  const NODES = [
+    { id: "steel",    x: 16,  y: 50,  w: 196, h: 56, t: "Steel & aluminium" },
+    { id: "rubber",   x: 16,  y: 126, w: 196, h: 56, t: "Rubber & crude products" },
+    { id: "rare",     x: 16,  y: 202, w: 196, h: 56, t: "Rare-earth magnets" },
+    { id: "semis",    x: 16,  y: 278, w: 196, h: 56, t: "Semiconductors" },
+    { id: "lithium",  x: 16,  y: 354, w: 196, h: 56, t: "Lithium cells" },
+    { id: "castings", x: 262, y: 50,  w: 196, h: 56, t: "Castings & forgings" },
+    { id: "tyres",    x: 262, y: 126, w: 196, h: 56, t: "Tyres & plastics" },
+    { id: "motors",   x: 262, y: 202, w: 196, h: 56, t: "EV traction motors" },
+    { id: "ecu",      x: 262, y: 278, w: 196, h: 56, t: "ECUs & electronics" },
+    { id: "battery",  x: 262, y: 354, w: 196, h: 56, t: "Battery packs" },
+    { id: "pv",       x: 508, y: 104, w: 204, h: 94, t: "Passenger vehicles", s: "Maruti · Tata Motors · M&M", held: "Maruti Suzuki" },
+    { id: "tw",       x: 508, y: 264, w: 204, h: 94, t: "Two-wheelers & EV", s: "Bajaj · TVS · Hero · Ather", held: "Bajaj Auto" },
+    { id: "dealers",  x: 762, y: 60,  w: 182, h: 56, t: "Dealers & inventory" },
+    { id: "loans",    x: 762, y: 146, w: 182, h: 56, t: "Auto loans & rates" },
+    { id: "rural",    x: 762, y: 232, w: 182, h: 56, t: "Rural demand, monsoon" },
+    { id: "urban",    x: 762, y: 318, w: 182, h: 56, t: "Urban demand & exports" }
+  ];
+  const EDGES = [
+    ["steel", "castings"], ["rubber", "tyres"], ["rare", "motors"], ["semis", "ecu"], ["lithium", "battery"],
+    ["castings", "pv"], ["castings", "tw"], ["tyres", "pv"], ["tyres", "tw"],
+    ["motors", "tw"], ["motors", "pv", true], ["ecu", "pv"], ["ecu", "tw", true], ["battery", "tw"], ["battery", "pv", true],
+    ["pv", "dealers"], ["pv", "loans"], ["pv", "urban"], ["tw", "dealers"], ["tw", "loans"], ["tw", "rural"]
+  ];
+  const SCENARIOS = {
+    chips2021: {
+      steps: [
+        { when: "Aug 2021", states: { semis: "stress", ecu: "watch", pv: "watch" },
+          text: "Chip supply tightens. Maruti's Gujarat contract plant skips production on three Saturdays in August.",
+          src: ["Moneylife", "https://www.moneylife.in/article/semiconductor-shortage-to-dent-maruti-suzukis-production-in-august/64763.html"] },
+        { when: "Sep 2021", states: { semis: "bad", ecu: "bad", pv: "bad", dealers: "stress", tw: "watch" },
+          text: "Maruti guides to about 40% of normal output across its Haryana and Gujarat plants for September.",
+          src: ["Mobility Outlook", "https://www.mobilityoutlook.com/news/maruti-suzuki-to-cut-production-in-september-expects-40-of-normal-output/"] },
+        { when: "Oct–Nov 2021", states: { semis: "stress", ecu: "stress", pv: "stress", dealers: "watch" },
+          text: "Guidance improves to about 60% of normal output in October and about 85% in November. The chain is still stressed but recovering.",
+          src: ["Orissa Post", "https://www.orissapost.com/maruti-suzuki-expects-production-to-be-hit-in-november-amid-semiconductor-shortage/amp/"] }
+      ]
+    },
+    rare2025: {
+      steps: [
+        { when: "Apr 2025", states: { rare: "watch" },
+          text: "China puts export licensing on seven rare earths used in EV motors, including dysprosium and terbium.",
+          src: ["Outlook Business", "https://www.outlookbusiness.com/industry/china-rare-earth-curbs-india-ev-shortage"] },
+        { when: "May 2025", states: { rare: "stress", motors: "watch", tw: "watch" },
+          text: "On its earnings call, Bajaj warns of a “dark cloud on the horizon” over magnet supply. A chain view would have flagged this node weeks before production was hit.",
+          src: ["Bloomberg", "https://www.bloomberg.com/news/articles/2025-05-29/china-magnet-curbs-threaten-india-auto-output-bajaj-warns"] },
+        { when: "Jul 2025", states: { rare: "bad", motors: "bad", tw: "stress", pv: "watch", dealers: "watch" },
+          text: "Chetak production drops nearly 50% to just over 10,800 units. Rajiv Bajaj warns of a possible “zero month” in August. Maruti reportedly cuts near-term e-Vitara targets by two-thirds.",
+          src: ["Autocar India", "https://www.autocarindia.com/industry-amp/bajaj-chetak-production-slumps-in-july-amid-rare-earth-magnet-crunch-436723"] },
+        { when: "20 Aug 2025", states: { rare: "watch", motors: "watch", tw: "watch" },
+          text: "Bajaj restarts Chetak production and says it has secured enough magnets for the festive season.",
+          src: ["Outlook Business", "https://www.outlookbusiness.com/corporate/e-scooter-chetak-supplies-resumed-sufficient-supply-of-rare-earth-magnets-secured-bajaj-auto"] }
+      ]
+    },
+    calm: {
+      steps: [
+        { when: "Illustrative", states: {},
+          text: "Every node is normal. This is the resting view an investor would glance at: nothing in the chain is under strain.", src: null }
+      ]
+    }
+  };
+
+  const svg = document.getElementById("chain");
+  const byId = Object.fromEntries(NODES.map(n => [n.id, n]));
+  const el = (name, attrs, parent) => {
+    const e = document.createElementNS(SVGNS, name);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  };
+
+  // Arrowhead markers, one per state
+  const defs = el("defs", {}, svg);
+  ["normal", "watch", "stress", "bad"].forEach(s => {
+    const m = el("marker", { id: "ah-" + s, viewBox: "0 0 8 8", refX: "7", refY: "4", markerWidth: "6", markerHeight: "6", orient: "auto" }, defs);
+    el("path", { d: "M0 0 L8 4 L0 8 z", class: "ah-" + s }, m);
+  });
+
+  // Column labels
+  [["INPUTS", 16], ["COMPONENTS", 262], ["VEHICLE MAKERS", 508], ["DEMAND SIDE", 762]].forEach(([t, x]) => {
+    el("text", { x, y: 30, class: "col-label" }, svg).textContent = t;
+  });
+
+  // Edges
+  const edgeEls = EDGES.map(([a, b, dashed]) => {
+    const s = byId[a], t = byId[b];
+    const x1 = s.x + s.w, y1 = s.y + s.h / 2, x2 = t.x - 3, y2 = t.y + t.h / 2;
+    const p = el("path", {
+      d: `M${x1} ${y1} C${x1 + 34} ${y1}, ${x2 - 34} ${y2}, ${x2} ${y2}`,
+      class: "edge" + (dashed ? " dashed" : ""), "marker-end": "url(#ah-normal)"
+    }, svg);
+    return { el: p, from: a, dashed };
+  });
+
+  // Side inputs bar
+  const bar = el("g", {}, svg);
+  el("path", { d: "M610 438 L610 362", class: "edge", "marker-end": "url(#ah-normal)" }, bar);
+  el("rect", { x: 16, y: 438, width: 928, height: 46, rx: 8, class: "side-bar" }, bar);
+  el("text", { x: 30, y: 465, class: "side-label" }, bar).textContent = "SIDE INPUTS";
+  const sides = ["FX: yen and dollar exposure", "Emission and EV policy", "Freight and logistics", "Tax changes"];
+  sides.forEach((t, i) => {
+    const x = 140 + i * 201;
+    if (i > 0) el("line", { x1: x - 14, y1: 450, x2: x - 14, y2: 472, class: "side-div" }, bar);
+    el("text", { x, y: 465, class: "side-text" }, bar).textContent = t;
+  });
+
+  // Nodes
+  const nodeEls = {};
+  NODES.forEach(n => {
+    const g = el("g", { "data-id": n.id }, svg);
+    el("rect", { x: n.x, y: n.y, width: n.w, height: n.h, rx: 8, class: "n-rect" }, g);
+    const big = n.h > 60;
+    el("circle", { cx: n.x + 16, cy: n.y + (big ? 26 : 23), r: 4.5, class: "n-dot" }, g);
+    el("text", { x: n.x + 28, y: n.y + (big ? 30 : 27), class: "n-title" }, g).textContent = n.t;
+    if (n.s) el("text", { x: n.x + 28, y: n.y + 50, class: "n-sub" }, g).textContent = n.s;
+    const st = el("text", { x: n.x + 28, y: n.y + (big ? 76 : 45), class: "n-state" }, g);
+    st.textContent = "Normal";
+    let heldTag = null;
+    if (n.held) {
+      heldTag = el("text", { x: n.x + n.w - 12, y: n.y + 76, "text-anchor": "end", class: "n-held" }, g);
+      heldTag.textContent = "HELD";
+      heldTag.style.display = "none";
+    }
+    nodeEls[n.id] = { g, st, heldTag };
+  });
+
+  // ---- State ----
+  let scn = "rare2025", stepIdx = 2, held = false;
+  const stepsBox = document.getElementById("steps");
+  const capWhen = document.getElementById("cap-when");
+  const capText = document.getElementById("cap-text");
+  const capSrc = document.getElementById("cap-src");
+  const capHeld = document.getElementById("cap-held");
+  const heldToggle = document.getElementById("held-toggle");
+
+  function renderSteps() {
+    stepsBox.textContent = "";
+    SCENARIOS[scn].steps.forEach((s, i) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = s.when;
+      b.setAttribute("aria-pressed", String(i === stepIdx));
+      b.addEventListener("click", () => { stepIdx = i; render(); });
+      stepsBox.appendChild(b);
+    });
+  }
+
+  function render() {
+    const step = SCENARIOS[scn].steps[stepIdx];
+    const stateOf = id => step.states[id] || "normal";
+    NODES.forEach(n => {
+      const s = stateOf(n.id), ne = nodeEls[n.id];
+      ne.g.setAttribute("class", (s === "normal" ? "" : "s-" + s) + (held && n.held ? " held" : ""));
+      ne.st.textContent = STATE_LABEL[s];
+      if (ne.heldTag) ne.heldTag.style.display = held ? "" : "none";
+    });
+    edgeEls.forEach(e => {
+      const s = stateOf(e.from);
+      e.el.setAttribute("class", "edge" + (e.dashed ? " dashed" : "") + (s === "normal" ? "" : " s-" + s));
+      e.el.setAttribute("marker-end", `url(#ah-${s})`);
+    });
+    stepsBox.querySelectorAll("button").forEach((b, i) => b.setAttribute("aria-pressed", String(i === stepIdx)));
+    capWhen.textContent = step.when;
+    capText.textContent = step.text;
+    capSrc.textContent = "";
+    if (step.src) {
+      capSrc.append("Source: ");
+      const a = document.createElement("a");
+      a.href = step.src[1]; a.textContent = step.src[0]; a.target = "_blank"; a.rel = "noopener";
+      capSrc.appendChild(a);
+    }
+    capHeld.hidden = !held;
+    if (held) {
+      const heldNodes = NODES.filter(n => n.held);
+      const hit = heldNodes.filter(n => stateOf(n.id) !== "normal");
+      const names = heldNodes.map(n => n.held).join(" and ");
+      capHeld.textContent = hit.length
+        ? `Example holdings: ${names}. ${hit.length} of ${heldNodes.length} sit on a node under strain: ${hit.map(n => n.held + " (" + STATE_LABEL[stateOf(n.id)].toLowerCase() + ")").join(", ")}.`
+        : `Example holdings: ${names}. Neither sits on a node under strain right now.`;
+    }
+  }
+
+  document.querySelectorAll("[data-scn]").forEach(b => {
+    b.addEventListener("click", () => {
+      scn = b.dataset.scn;
+      const steps = SCENARIOS[scn].steps;
+      stepIdx = scn === "rare2025" ? 2 : scn === "chips2021" ? 1 : 0;
+      if (stepIdx >= steps.length) stepIdx = 0;
+      document.querySelectorAll("[data-scn]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+      renderSteps(); render();
+    });
+  });
+  heldToggle.addEventListener("change", () => { held = heldToggle.checked; render(); });
+  renderSteps(); render();
+
+  // ---- Concept catalogue ----
+  const STAGES = [
+    ["discover", "Discover"], ["understand", "Understand"], ["plan", "Decide and plan"],
+    ["act", "Act"], ["monitor", "Monitor"], ["reflect", "Reflect and improve"]
+  ];
+  const USER_LABEL = { I: "Investor", T: "Trader", B: "Both" };
+  const CAT = [
+    ["D1","discover","B","Natural-language screener","“Debt-free auto ancillaries with over 20% EV revenue and rising margins” becomes visible, editable filters.","Robinhood Cortex scans, Futu AI screening"],
+    ["D2","discover","I","Idea to basket","A theme in plain words becomes a candidate basket, backtested against Nifty and monitored. Framed as research.","Public Generated Assets"],
+    ["D3","discover","I","Value-chain discovery","“Who makes the parts for X?” Browse the chain to find listed suppliers.","Tijori links; professional SPLC tools"],
+    ["D4","discover","T","Buzzing stocks with a reason","Adds the cause to Sahi AI's breakout alerts (news, block deal, OI build-up, sector move) and base rates from past similar breakouts.","Robinhood Digests, moomoo pattern analogues"],
+    ["D5","discover","T","F&O unusual-activity explainer","Unusual OI, IV spikes or PCR shifts, read in plain language with the likely interpretations.","Sensibull data, no AI layer"],
+    ["D6","discover","B","Event radar","Results, RBI policy, expiry and Budget dates for my holdings and positions, with implied vs historical move.","IBKR filtered news, Perplexity concall calendar"],
+    ["D7","discover","I","Similar-company finder","“Like X but smaller, cheaper or less dependent on China.”","Fiscal.ai segment KPIs"],
+    ["U1","understand","I","Value-chain canvas","Live causal map with node states, ripple tracing and what-if shocks. See the deep dive above.","Professional tools only"],
+    ["U2","understand","B","Why it moved, on the chart","Hover a candle or gap to see what happened then, pinned on the timeline.","Robinhood Digests, TradingView Chart Copilot"],
+    ["U3","understand","I","Concall copilot","Live transcript, key takeaways, tone shift vs last quarter, the questions analysts pushed on.","Perplexity live transcripts"],
+    ["U4","understand","I","Management promise ledger","What management guided vs what it delivered, quarter by quarter, as a credibility track record.","None found"],
+    ["U5","understand","I","Filing diff","What changed vs last year's annual report: new risks, auditor remarks, related-party deals, pledges.","None found for retail"],
+    ["U6","understand","I","Red-flag scanner","Governance and accounting warnings, surveillance-list status, rising pledges, auditor churn.","Zerodha rule-based nudges"],
+    ["U7","understand","B","Research analyst with citations","Q&A grounded in Indian filings, prices and news. Every claim links to its source, and the query is shown.","Dhan Fuzz, Groww GR-1, Bloomberg ASKB"],
+    ["U8","understand","I","Compare mode","Two or three companies side by side, with a narrative of the real differences.","Fiscal.ai"],
+    ["U9","understand","I","Results one-pager","After results: beat or miss vs history, segment trends, guidance change, what to watch.","Public Alpha earnings summaries"],
+    ["U10","understand","B","Inline jargon explainer","Hover PCR, IV, max pain or EBITDA for an explanation using the user's own numbers, in English, Hindi or Hinglish.","Kotak Neome"],
+    ["U11","understand","T","Market-regime strip","One line of context before trading: trend or range day, VIX, FII flows, global cues.","moomoo digest"],
+    ["P1","plan","I","Thesis tracker","The user writes a thesis; AI turns it into KPIs and nodes to watch and reports intact, weakening or broken.","None found"],
+    ["P2","plan","T","Options strategy copilot","“Mildly bullish on Nifty till Thursday, max loss ₹5k” yields structures with payoff, Greeks, margin and trade-offs.","Sensibull (rule-based)"],
+    ["P3","plan","T","Position what-if","“Nifty down 2% and VIX up 3 by 2 pm?” gives a P&L heatmap and the leg that hurts.","Opstra simulator (non-AI)"],
+    ["P4","plan","T","Words to backtest to paper","Describe rules, see them as a visual strategy, backtest, paper-trade, and go live only through the algo framework.","Composer, Futu Expert mode"],
+    ["P5","plan","T","Pre-market trading plan","Write today's levels, setups, max loss and max trades, and get held to it in the session.","Tradezella-style planning"],
+    ["P6","plan","I","Portfolio X-ray","Concentration, MF and stock overlap, sector exposure, hidden value-chain exposure, drift vs target.","Zerodha MCP, Groww Prime, Ask IBKR"],
+    ["P7","plan","I","Rebalance and tax what-if","“If I trim X, what happens to exposure and tax?” Includes LTCG exemption and loss-harvesting ideas, as education.","None found at Indian brokers"],
+    ["P8","plan","T","Event-day brief","Before results, policy or expiry: implied move, past reactions, liquidity notes.","None found"],
+    ["E1","act","T","Command-bar order entry","“Buy 2 lots Nifty 25000 CE limit 120 SL 90” becomes a ticket preview to confirm. Voice optional.","Webull voice orders with preview"],
+    ["E2","act","T","Smart pre-trade check","Risk vs capital, margin, event risk, liquidity, circuit limits, adding to a loser, a third trade ten minutes after a loss.","Zerodha nudges (rule-based)"],
+    ["E3","act","T","Adaptive stops","Suggests stop and trailing distance from current volatility. Builds on Sahi's trailing SL.","Sahi trailing SL"],
+    ["E4","act","B","Instruction to alert","“Tell me if Bank Nifty breaks yesterday's high on double volume” becomes an editable rule.","Robinhood Cortex indicators"],
+    ["E5","act","B","Guarded agents","Monitoring and conditional agents with a capital budget, symbol list, size caps, preview, kill switch, log and Algo-ID.","Public, eToro, Upstox, Webull"],
+    ["E6","act","T","Bring your own AI","A Sahi MCP so power users can connect Claude and similar tools. Read-only by default, trading opt-in.","Zerodha, Kotak, Upstox MCP"],
+    ["M1","monitor","B","Morning brief and evening wrap","What changed overnight that matters to my holdings and positions.","Bloomberg Morning Reports, Robinhood digests"],
+    ["M2","monitor","B","P&L attribution","“Portfolio down 2%: 60% from IT holdings after a US tech sell-off.”","Ask IBKR"],
+    ["M3","monitor","T","Live position narrator","“Your short straddle's delta is +0.4, close to your adjustment rule.”","None found"],
+    ["M4","monitor","B","Alerts that say why","Filters the news to items that touch holdings or watched nodes, and explains the link.","eToro Tori, IBKR news"],
+    ["M5","monitor","I","Node watch","Alerts when a link in a holding's value chain changes state.","None found"],
+    ["M6","monitor","B","Tip and scam shield","Paste a WhatsApp or Telegram tip; check surveillance status, pledges, pump-and-dump volume and whether the source is registered.","None found; India-specific"],
+    ["R1","reflect","T","Tilt detection","Spots loss then bigger size then fast re-entry, trade bursts, stop widening. Responds with a cool-down or size reminder.","Webull drift alerts; StopTilt, TradeMindful"],
+    ["R2","reflect","T","Self-set guardrails","Daily loss limit, max trades and size, set when calm and enforced when not.","Anti-Tilt max-loss lock"],
+    ["R3","reflect","T","Auto-journal","Logs every trade with setup, market regime, time and holding period, plus an optional mood tag.","Tradezella"],
+    ["R4","reflect","T","Weekly behaviour report","“You lose most in the first 15 minutes.” “Your win rate halves after two losses.” Cost of impatience in rupees.","TradeMindful"],
+    ["R5","reflect","T","Rule-drift alerts","Compares actual behaviour with the user's stated plan.","Webull Vega"],
+    ["R6","reflect","T","Session replay with coach","Replays a past day with commentary at each decision point.","None found"],
+    ["R7","reflect","B","Personal micro-lessons","Short lessons triggered by the user's own mistakes.","None found"],
+    ["R8","reflect","T","Paper-to-live graduation","Paper-trade a strategy and unlock live trading after showing discipline.","Futu simulated trading"]
+  ];
+
+  let fStage = "all", fUser = "all";
+  const fStageBox = document.getElementById("f-stage");
+  const fUserBox = document.getElementById("f-user");
+  const list = document.getElementById("cat-list");
+  const count = document.getElementById("cat-count");
+
+  function mkFilter(box, opts, get, set) {
+    opts.forEach(([key, label]) => {
+      const b = document.createElement("button");
+      b.type = "button"; b.textContent = label; b.dataset.key = key;
+      b.addEventListener("click", () => { set(key); sync(); renderCat(); });
+      box.appendChild(b);
+    });
+    function sync() { box.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.key === get()))); }
+    sync();
+  }
+  mkFilter(fStageBox, [["all", "All"], ...STAGES.map(([k, l]) => [k, l.split(" ")[0]])], () => fStage, v => { fStage = v; });
+  mkFilter(fUserBox, [["all", "Everyone"], ["I", "Investors"], ["T", "Traders"]], () => fUser, v => { fUser = v; });
+
+  function renderCat() {
+    list.textContent = "";
+    const match = c => (fStage === "all" || c[1] === fStage) && (fUser === "all" || c[2] === fUser || c[2] === "B");
+    let n = 0;
+    STAGES.forEach(([key, label]) => {
+      const items = CAT.filter(c => c[1] === key && match(c));
+      if (!items.length) return;
+      n += items.length;
+      const grp = document.createElement("div"); grp.className = "stage-group";
+      const h = document.createElement("h3"); h.textContent = label; grp.appendChild(h);
+      const ul = document.createElement("ul"); ul.className = "concepts";
+      items.forEach(([id, , user, name, ai, prec]) => {
+        const li = document.createElement("li"); li.className = "concept";
+        li.innerHTML = '<span class="cid"></span><div class="cmain"><div class="chead"><h4></h4><span class="tag"></span></div><p></p></div><p class="prec"><b>Closest precedent</b><span></span></p>';
+        li.querySelector(".cid").textContent = id;
+        li.querySelector("h4").textContent = name;
+        const tag = li.querySelector(".tag"); tag.textContent = USER_LABEL[user]; tag.classList.add("tag-" + user);
+        li.querySelector(".cmain p").textContent = ai;
+        li.querySelector(".prec span").textContent = prec;
+        ul.appendChild(li);
+      });
+      grp.appendChild(ul);
+      list.appendChild(grp);
+    });
+    count.textContent = `Showing ${n} of ${CAT.length} concepts`;
+  }
+  renderCat();
+
+  // ---- White space table ----
+  const LVL = { "Low": 1, "Low–Medium": 2, "Medium": 3, "Medium–High": 4, "High": 5, "Very high": 6 };
+  const WS = [
+    ["Value-chain canvas and shock maps", "U1, D3, M5", ["High", "investors"], ["High"], ["Very high", "no retail equivalent"], ["Medium", "auto good, others thin"], ["Medium", "must not read as advice"]],
+    ["Discipline layer", "R1–R5, E2", ["Very high", "91% of F&O traders lose"], ["Medium–High"], ["High", "only rule-based nudges today"], ["High", "own trade data"], ["Low", "tension with per-order revenue"]],
+    ["Options strategy copilot", "P2, P3", ["High", "core Sahi users"], ["Medium"], ["High", "no AI options copilot in India"], ["High"], ["Medium", "could look like advice"]],
+    ["Natural-language scans and alerts", "D1, E4", ["High"], ["High"], ["Medium", "Robinhood has it; Indian peers don't"], ["High"], ["Low"]],
+    ["Why it moved, with base rates", "D4, U2", ["Medium–High"], ["High"], ["Low–Medium", "table stakes globally"], ["High"], ["Low"]],
+    ["Concall and filings intelligence", "U3–U5", ["High", "investors"], ["High"], ["Medium", "Perplexity is free"], ["High"], ["Low"]],
+    ["Guarded agents and MCP", "E5, E6", ["Medium", "power users"], ["High"], ["Low–Medium", "Upstox, Zerodha, Kotak already there"], ["High"], ["High", "algo framework, kill switch"]],
+    ["Thesis tracker", "P1", ["High", "investors"], ["High"], ["High"], ["Medium"], ["Low"]],
+    ["Tip and scam shield", "M6", ["High", "India-specific"], ["Medium"], ["High"], ["Medium"], ["Low"]]
+  ];
+  const tbody = document.querySelector("#ws-table tbody");
+  WS.forEach(([name, ids, ...cells]) => {
+    const tr = document.createElement("tr");
+    const td0 = document.createElement("td"); td0.className = "name";
+    td0.textContent = name;
+    const sm = document.createElement("small"); sm.textContent = ids; td0.appendChild(sm);
+    tr.appendChild(td0);
+    cells.forEach(([label, note], ci) => {
+      const td = document.createElement("td");
+      const wrap = document.createElement("div"); wrap.className = "meter-cell";
+      const m = document.createElement("div"); m.className = "meter" + (ci === 4 ? " risk" : "");
+      m.setAttribute("aria-hidden", "true");
+      for (let i = 1; i <= 6; i++) { const seg = document.createElement("i"); if (i <= LVL[label]) seg.className = "on"; m.appendChild(seg); }
+      const l = document.createElement("span"); l.className = "meter-label"; l.textContent = label;
+      wrap.append(m, l);
+      if (note) { const nn = document.createElement("span"); nn.className = "meter-note"; nn.textContent = note; wrap.appendChild(nn); }
+      td.appendChild(wrap); tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+
+  // ---- Contents highlight ----
+  const links = Array.from(document.querySelectorAll(".toc a"));
+  const secs = links.map(a => document.querySelector(a.getAttribute("href")));
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          links.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + en.target.id));
+        }
+      });
+    }, { rootMargin: "-20% 0px -70% 0px" });
+    secs.forEach(s => s && io.observe(s));
+  }
+})();
+</script>
+</body>
+</html>
