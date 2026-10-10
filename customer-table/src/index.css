@@ -1,0 +1,11 @@
+/* Kumo setup: scan Kumo's components for classes, register its tokens, then load Tailwind. */
+@source "../node_modules/@cloudflare/kumo/dist/**/*.{js,jsx,ts,tsx}";
+@import "@cloudflare/kumo/styles";
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: var(--color-kumo-canvas);
+    color: var(--text-color-kumo-default);
+  }
+}
