@@ -20,6 +20,6 @@ Sample customers live in `src/customers.ts`. Replace that array (or fetch from a
 
 ## Deploy
 
-`.github/workflows/customer-table.yml` builds on every push and PR that touches this folder,
-and publishes `dist/` to GitHub Pages from the default branch.
+`.github/workflows/pages.yml` builds on every push and PR that touches this folder,
+and publishes it to GitHub Pages from the default branch, at the site root: https://suhas-cp.github.io/sahi-cc/
 One-time setup: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
