@@ -1,14 +1,16 @@
-name: Customer table
+name: Pages
 
 on:
   push:
     paths:
       - "customer-table/**"
-      - ".github/workflows/customer-table.yml"
+      - "pos-dashboard/**"
+      - ".github/workflows/pages.yml"
   pull_request:
     paths:
       - "customer-table/**"
-      - ".github/workflows/customer-table.yml"
+      - "pos-dashboard/**"
+      - ".github/workflows/pages.yml"
   workflow_dispatch:
 
 permissions:
@@ -17,21 +19,30 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: customer-table
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: customer-table/package-lock.json
-      - run: npm ci
-      - run: npm run build
+          cache-dependency-path: |
+            customer-table/package-lock.json
+            pos-dashboard/package-lock.json
+      - name: Build customer table
+        working-directory: customer-table
+        run: npm ci && npm run build
+      - name: Build POS dashboard
+        working-directory: pos-dashboard
+        run: npm ci && npm run build
+      # One Pages site: the customer table at the root, the POS dashboard under /pos/.
+      - name: Assemble site
+        run: |
+          mkdir -p _site/pos
+          cp -r customer-table/dist/. _site/
+          cp -r pos-dashboard/dist/. _site/pos/
       - uses: actions/upload-pages-artifact@v4
         with:
-          path: customer-table/dist
+          path: _site
 
   # Publishes to GitHub Pages only from the default branch; other branches and PRs just build.
   deploy:

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Point-of-sale dashboard for a local store, built with Cloudflare's Kumo design system." />
+    <title>Store POS</title>
+    <script>
+      // Apply the saved or system color mode before first paint to avoid a flash.
+      try {
+        var mode = localStorage.getItem("color-mode");
+        if (mode !== "light" && mode !== "dark") {
+          mode = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.dataset.mode = mode;
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
